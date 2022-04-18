@@ -1,9 +1,16 @@
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import UserList from "./pages/UserList";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={ <Home/> } />
+      <Route path="/coup-de-coeur" element={ <UserList/> } />
+    </Routes>
+    </BrowserRouter>
   );
 }
 
