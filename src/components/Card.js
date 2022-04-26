@@ -75,10 +75,23 @@ const Card = ({ movie }) => {
     }
 
     const addStorage = () => {
-       let storedData = window.localStorage.movies ? window.localStorage.movies.split(",") : [];
-       storedData.push(movie.id);
-       window.localStorage.movies = storedData;
+       let storedData = window.localStorage.movies 
+       ? window.localStorage.movies.split(",") 
+       : [];
+
+       if (!storedData.includes(movie.id.toString())) {
+         storedData.push(movie.id);
+         window.localStorage.movies = storedData;
+       }
     };
+
+    const deleteStorage = () => {
+        let storedData = window.localStorage.movies.split(",");
+
+        let newData = storedData.filter((id) => id !== movie.id);
+
+        window.localStorage.movies = newData;
+    }
 
     return (
         <div className="card">
@@ -94,16 +107,30 @@ const Card = ({ movie }) => {
                 {movie.vote_average}/10 <span>★</span>
             </h4>
             
-            <ul>{genreFinder()}</ul>
+            <ul>
+              {movie.genre_ids
+                 ? genreFinder() 
+                 : movie.genre?.map((genre, index) => <li key={index}>{genre.name}</li>)}
+            </ul>
             {movie.overview ? <h3>Synopsis</h3> : ""}
             <p>{movie.overview}</p>
 
-            <div 
-            className="btn"
-            onClick={() => addStorage()}
-            >
-              Ajouter aux coups de coeur</div>
-        </div>
+            {movie.genre_ids ? (
+              <div 
+              className="btn"
+              onClick={() => addStorage()}
+              >
+                Ajouter aux coups de coeur</div>
+            ) : (
+              <div className="btn" onClick={() => {
+                deleteStorage();
+                window.location.reload();
+              }}
+              >
+                Supprimer de la liste
+                </div>
+            )}
+            </div>
     );
 };
 
