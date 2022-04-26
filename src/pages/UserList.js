@@ -7,14 +7,17 @@ const UserList = () => {
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        let moviesId = window.localStorage.movies ? window.localStorage.movies.split(",") : [];
+        let moviesId = window.localStorage.movies 
+        ? window.localStorage.movies.split(",") 
+        : [];
 
         for (let i = 0; i < moviesId.length; i++) {
-
-            axios.get(`https://api.themoviedb.org/3/movie?api_key=ecd39f5b711816112a41aee7ff96c6cb`)
+            axios
+            .get(
+                    `https://api.themoviedb.org/3/movie?api_key=ecd39f5b711816112a41aee7ff96c6cb`
+                )
             .then((res) => setListData((listData) => [...listData, res.data]));
         }
-
     }, [])
     
     return (
@@ -23,9 +26,9 @@ const UserList = () => {
                 <Header />
                 <h2>Coup de coeur <span>💖</span></h2>
                 <div className="result">
-                    {listData.length > 0 ? listData.map((movie) => (
-                        <Card movie={movie} key={movie.id} />
-                    )) : (
+                    {listData.length > 0 ? (
+                         listData.map((movie) => <Card movie={movie} key={movie.id} />)
+                    ) : (
                         <h2>Aucun coup de coeur pour le moment</h2>
                     )}
                 </div>

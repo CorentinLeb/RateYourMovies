@@ -95,8 +95,14 @@ const Card = ({ movie }) => {
 
     return (
         <div className="card">
-            <img src={ movie.poster_path ?
-                "https://image.tmdb.org/t/p/w500/" + movie.poster_path : "./img/poster.jpg"} alt="affiche film" />
+            <img 
+            src={
+                movie.poster_path
+                ? "https://image.tmdb.org/t/p/w500/" + movie.poster_path 
+                : "./img/poster.jpg"
+               } 
+               alt="affiche film" 
+               />
             <h2>{movie.title}</h2>
             {movie.release_date ? (
                 <h5>Sorti le : {dateFormater(movie.release_date)}</h5>
@@ -110,7 +116,9 @@ const Card = ({ movie }) => {
             <ul>
               {movie.genre_ids
                  ? genreFinder() 
-                 : movie.genre?.map((genre, index) => <li key={index}>{genre.name}</li>)}
+                 : movie.genre?.map((genre, index) => (
+                    <li key={index}>{genre.name}</li>
+                 ))}
             </ul>
             {movie.overview ? <h3>Synopsis</h3> : ""}
             <p>{movie.overview}</p>
