@@ -75,12 +75,9 @@ const Card = ({ movie }) => {
     }
 
     const addStorage = () => {
-       let storedData =  window.localStorage.movies
-       ? window.localStorage.movies.split(",") : [];
-       if (storedData.includes(movie.id)) {
-           storedData.push(movie.id);
-           window.localStorage.movies = storedData;
-       }
+       let storedData = window.localStorage.movies ? window.localStorage.movies.split(",") : [];
+       storedData.push(movie.id);
+       window.localStorage.movies = storedData;
     };
 
     return (
@@ -105,7 +102,7 @@ const Card = ({ movie }) => {
             className="btn"
             onClick={() => addStorage()}
             >
-                Ajouter aux coups de coeur</div>
+              Ajouter aux coups de coeur</div>
         </div>
     );
 };
